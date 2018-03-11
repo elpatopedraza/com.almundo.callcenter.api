@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="andres.pedraza" id="CALLCENTER-API-0.0.1-INITIAL-TAG">
+        <tagDatabase tag="CALLCENTER-API-TAG-BEFORE-0.0.1" />
+    </changeSet>
+
+    <changeSet author="andres.pedraza" id="CALLCENTER-API-0.0.1-CREATE-CORE-SCHEMA">
+        <sql>
+            CREATE SCHEMA core;
+        </sql>
+        <rollback>
+            DROP SCHEMA core;
+        </rollback>
+    </changeSet>
+
+    <changeSet author="andres.pedraza" id="CALLCENTER-API-0.0.1-CREATE-EMPLOYEE-TABLE">
+        <createTable schemaName="core" tableName="employee">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" />
+            </column>
+            <column name="names" type="VARCHAR(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="surnames" type="VARCHAR(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="VARCHAR(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="type" type="VARCHAR(128)">
+                <constraints nullable="false" />
+            </column>
+            <column name="available" type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addDefaultValue columnName="available"
+                         defaultValueBoolean="true"
+                         schemaName="core"
+                         tableName="employee"/>
+        <addPrimaryKey schemaName="core"
+                       tableName="employee"
+                       columnNames="id" />
+        <addUniqueConstraint schemaName="core"
+                             tableName="employee"
+                             columnNames="email" />
+
+        <rollback>
+            <dropTable schemaName="core" tableName="employee" />
+        </rollback>
+    </changeSet>
+
+    <changeSet author="andres.pedraza" id="CALLCENTER-API-0.0.1-CREATE-CALL-TABLE">
+        <createTable schemaName="core" tableName="call">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" />
+            </column>
+            <column name="employee_id" type="VARCHAR(36)">
+                <constraints nullable="true" />
+            </column>
+            <column name="duration_in_secs" type="INTEGER">
+                <constraints nullable="true" />
+            </column>
+            <column name="state" type="VARCHAR(128)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addPrimaryKey schemaName="core"
+                       tableName="call"
+                       columnNames="id" />
+
+        <rollback>
+            <dropTable schemaName="core" tableName="call" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

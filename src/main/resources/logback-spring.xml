@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- EXTERNAL IMPORTS -->
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <!-- LOGGER GENERAL LEVEL -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache.activemq" level="INFO" />
+
+    <!-- LOCAL PROFILE -->
+    <springProfile name="local">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <!-- PRODUCTION PROFILE -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+</configuration>
