@@ -18,6 +18,7 @@
     <properties>
         <apache.commons.lang.version>3.7</apache.commons.lang.version>
         <java.version>1.8</java.version>
+        <javax.interceptor.api.version>1.2</javax.interceptor.api.version>
         <lombok.version>1.16.20</lombok.version>
     </properties>
 
@@ -26,6 +27,12 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.interceptor</groupId>
+            <artifactId>javax.interceptor-api</artifactId>
+            <version>${javax.interceptor.api.version}</version>
         </dependency>
 
         <dependency>
@@ -88,11 +95,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <profiles>
-                        <profile></profile>
-                    </profiles>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -126,6 +128,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
